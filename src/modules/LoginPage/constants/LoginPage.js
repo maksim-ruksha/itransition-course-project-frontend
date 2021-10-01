@@ -1,0 +1,1 @@
+export const LOGIN_PAGE_API_LOGIN = "login";

@@ -8,12 +8,14 @@ import {Router} from "react-router-dom";
 
 const browserHistory = createBrowserHistory();
 
+
 ReactDOM.render(
-    <Router history={browserHistory}>
-        <React.StrictMode>
-            <App/>
-        </React.StrictMode>
-    </Router>,
+
+        <Router history={browserHistory}>
+            <React.StrictMode>
+                <App/>
+            </React.StrictMode>
+        </Router>,
     document.getElementById('root')
 );
 

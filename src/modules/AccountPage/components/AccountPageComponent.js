@@ -1,24 +1,28 @@
 import React from "react";
-import {Button, Card, CardContent, Slider, Typography} from "@mui/material";
-//TODO: on problem click
-export default function AccountPageComponent({onProblemClick}) {
-    return (
-        <div>
-            <Card className="main-card">
+import {
+    Card,
+    CardContent, List,
+    Typography
+} from "@mui/material";
+
+import {useStyles} from "./AccountPageStyles.js";
+
+export default function AccountPageComponent({userProblemsListItems}) {
+    const classes = useStyles();
+    return (<Card className={classes.mainCard}>
                 <CardContent>
                     <Typography
-                        component="h1" variant="h5"
-                        className="main-card"
-                    >
-                        Текст
+                        component="h1" variant="h4">
+                        Имя пользователя
                     </Typography>
-                    <Slider className="slider"/>
-                    <Button className="main-card">
-                        Батон
-                    </Button>
+                    <Typography component="h1" variant="h6">
+                        Задачи пользователя
+                    </Typography>
+
+                    <List>
+                        {userProblemsListItems}
+                    </List>
+
                 </CardContent>
-            </Card>
-
-
-        </div>);
+            </Card>);
 }

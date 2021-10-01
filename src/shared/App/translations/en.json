@@ -1,0 +1,22 @@
+{
+  "app-bar": {
+    "title": "Math Problems",
+    "dark-mode": "Dark Mode",
+    "login": "Sign In",
+    "register": "Register"
+  },
+  "problem-add-page": {
+    "new-problem": "New problem",
+    "title": "Title",
+    "description": "Description",
+    "tab-edit": "Edit",
+    "tab-preview": "Preview",
+    "upload-images": "Upload images",
+    "publish": "Publish"
+  },
+  "login-page": {
+    "login": "Login",
+    "password": "Password",
+    "sign-in": "Sign In"
+  }
+}

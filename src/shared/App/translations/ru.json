@@ -1,0 +1,22 @@
+{
+  "app-bar": {
+    "title": "Математические задачи",
+    "dark-mode": "Тёмный режим",
+    "login": "Войти",
+    "register": "Зарегестрироваться"
+  },
+  "problem-add-page": {
+    "new-problem": "Новая задача",
+    "title": "Название",
+    "description": "Описание",
+    "tab-edit": "Редактирование",
+    "tab-preview": "Предпросмотр",
+    "upload-images": "Прикрепить изображения",
+    "publish": "Опубликовать"
+  },
+  "login-page": {
+    "login": "Логин",
+    "password": "Пароль",
+    "sign-in": "Войти"
+  }
+}
