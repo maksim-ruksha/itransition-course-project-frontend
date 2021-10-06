@@ -1,12 +1,18 @@
 import React from "react";
-import {useStyles} from "./LoginPageStyles";
+import {useStyles} from "./RegisterPageStyles";
 import {Button, Card, CardContent, TextField, Typography,} from "@mui/material";
 import {useTranslation} from "react-multi-lang";
 
-export default function LoginPageComponent({onLoginChange, onPasswordChange, onLoginClick, error}) {
+export default function RegisterPageComponent({
+                                                  onLoginChange,
+                                                  onPasswordChange,
+                                                  onPasswordRepeatChange,
+                                                  onRegisterClick,
+                                                  error
+                                              }) {
 
     const classes = useStyles();
-    const t = useTranslation("login-page");
+    const t = useTranslation("register-page");
 
     return <Card className={classes.mainCard}>
         <CardContent>
@@ -21,21 +27,26 @@ export default function LoginPageComponent({onLoginChange, onPasswordChange, onL
                            onChange={onPasswordChange}
                 />
             </div>
+            <div className={classes.margin16px}>
+                <TextField label={t("password-repeat")}
+                           type="password"
+                           onChange={onPasswordRepeatChange}
+                />
+            </div>
             {error ?
                 <div className={classes.margin16px}>
                     <Typography color="error.main">
                         {error + " (перевести бля)"}
                     </Typography>
                 </div>
-                :
-                <div/>
+                : <div/>
             }
             <Button
                 className={classes.margin16px}
                 variant="contained"
-                onClick={onLoginClick}
+                onClick={onRegisterClick}
             >
-                {t("sign-in")}
+                {t("register")}
             </Button>
         </CardContent>
     </Card>;

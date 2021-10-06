@@ -9,6 +9,18 @@ export const useStyles = makeStyles({
     margin16px: {
         margin: "16px"
     },
+    tagChip: {
+        marginRight: "8px",
+        marginLeft: "8px",
+        marginTop: "4px",
+        marginBottom: "4px",
+    },
+    tags: {
+        marginTop: "16px",
+        marginBottom: "16px",
+        flexShrink: "1",
+        overflowX: "scroll",
+    },
     borderCollapse: {
         borderCollapse: "collapse",
     },

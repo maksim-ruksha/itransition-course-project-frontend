@@ -12,7 +12,7 @@ class ProblemAddPageContainer extends Component {
 
             title: "",
             rawDescription: "",
-            tags: [],
+            tags: "",
             theme: null,
 
             problemImages: [],
@@ -22,14 +22,16 @@ class ProblemAddPageContainer extends Component {
         this.onRawDescriptionChange = this.onRawDescriptionChange.bind(this);
         this.onTabsChange = this.onTabsChange.bind(this);
         this.onImageFieldChange = this.onImageFieldChange.bind(this);
+        this.onTagsChange = this.onTagsChange.bind(this);
     }
 
     makeImageList() {
         const imagesCount = this.state.problemImages.length;
 
         const images = this.state.problemImages.map(file =>
-            (<ProblemAddPageImageListItemComponent image={file? URL.createObjectURL(file) : null} alt={file? file.name : null}/>
-        ));
+            (<ProblemAddPageImageListItemComponent image={file ? URL.createObjectURL(file) : null}
+                                                   alt={file ? file.name : null}/>
+            ));
         if (imagesCount < 3)
             return (<div>
                 {images}
@@ -59,6 +61,10 @@ class ProblemAddPageContainer extends Component {
         console.log(this.state.problemImages);
     }
 
+    onTagsChange(event) {
+        this.setState({tags: event.target.value});
+    }
+
     render() {
         return (
             <ProblemAddPageComponent
@@ -69,6 +75,8 @@ class ProblemAddPageContainer extends Component {
                 onImageFieldChange={this.onImageFieldChange}
                 rawDescription={this.state.rawDescription}
                 imageList={this.makeImageList()}
+                onTagsChange={this.onTagsChange}
+                tags={this.state.tags.split(",")}
             />
         );
     }

@@ -4,7 +4,7 @@ import {useStyles} from "./ProblemAddPageStyles";
 import {useTranslation} from "react-multi-lang";
 
 export default function ProblemAddPageEditTabComponent({onRawDescriptionTextChange, rawDescription}) {
-    const t = useTranslation();
+    const t = useTranslation("problem-add-page");
     return (
         <div>
             <TextField

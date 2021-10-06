@@ -3,7 +3,10 @@
     "title": "Математические задачи",
     "dark-mode": "Тёмный режим",
     "login": "Войти",
-    "register": "Зарегестрироваться"
+    "register": "Зарегестрироваться",
+    "lang-en": "English",
+    "lang-ru": "Русский",
+    "lang": "Язык"
   },
   "problem-add-page": {
     "new-problem": "Новая задача",
@@ -12,11 +15,18 @@
     "tab-edit": "Редактирование",
     "tab-preview": "Предпросмотр",
     "upload-images": "Прикрепить изображения",
-    "publish": "Опубликовать"
+    "publish": "Опубликовать",
+    "tags": "Теги (через запятую)"
   },
   "login-page": {
     "login": "Логин",
     "password": "Пароль",
     "sign-in": "Войти"
+  },
+  "register-page": {
+    "register": "Зарегистрироваться",
+    "login": "Логин",
+    "password": "Пароль",
+    "password-repeat": "Повторите пароль"
   }
 }

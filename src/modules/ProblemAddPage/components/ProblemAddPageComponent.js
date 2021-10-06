@@ -16,8 +16,7 @@ import {useTranslation} from 'react-multi-lang'
 import {useStyles} from "./ProblemAddPageStyles";
 import ProblemAddPageEditTabComponent from "./ProblemAddPageEditTabComponent";
 import ProblemAddPagePreviewTabComponent from "./ProblemAddPagePreviewTabComponent";
-
-
+import ProblemAddPageTagsComponent from "./ProblemAddPageTagsComponent";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -45,7 +44,6 @@ TabPanel.propTypes = {
     value: PropTypes.number.isRequired,
 };
 
-// TODO: разобраться шо это
 function a11yProps(index) {
     return {
         id: `simple-tab-${index}`,
@@ -53,15 +51,15 @@ function a11yProps(index) {
     };
 }
 
-
 export default function ProblemAddPageComponent({
                                                     imageList,
-                                                    onImageFieldChange,
                                                     tabsValue,
                                                     onTabsChange,
                                                     onTitleTextChange,
                                                     onRawDescriptionTextChange,
-                                                    rawDescription
+                                                    rawDescription,
+                                                    tags,
+                                                    onTagsChange
                                                 }) {
     const classes = useStyles();
     const t = useTranslation("problem-add-page");
@@ -96,20 +94,27 @@ export default function ProblemAddPageComponent({
                 </TabPanel>
             </div>
 
-            <Typography
-                className={classes.margin16px}
-                component="h1"
-                variant="h5">
-                {t("upload-images")}
-            </Typography>
-            <div>
+            <div className={classes.margin16px}>
+                <Typography
+                    className={classes.margin16px}
+                    component="h1"
+                    variant="h5">
+                    {t("upload-images")}
+                </Typography>
+            </div>
+            <div className={classes.margin16px}>
                 {imageList}
             </div>
-            <div>
+
+            <div className={classes.margin16px}>
+                <ProblemAddPageTagsComponent tags={tags} onTagsChange={onTagsChange}/>
+            </div>
+            <div className={classes.margin16px}>
                 <Button variant="contained" className={classes.button}>
                     {t("publish")}
                 </Button>
             </div>
+
         </CardContent>
     </Card>);
 }

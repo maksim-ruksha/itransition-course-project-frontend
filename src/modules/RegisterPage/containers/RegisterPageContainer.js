@@ -1,27 +1,34 @@
 import React, {Component} from "react";
-import LoginPageComponent from "../components/LoginPageComponent";
+import RegisterPageComponent from "../components/RegisterPageComponent";
 import axios from "axios";
 
 import {
-    APP_API_BASE_URL, APP_LOCAL_STORAGE_USER_NAME_KEY, APP_LOCAL_STORAGE_USER_ROLE_KEY,
+    APP_API_BASE_URL,
+    APP_LOCAL_STORAGE_USER_NAME_KEY,
+    APP_LOCAL_STORAGE_USER_ROLE_KEY
 } from "../../../shared/App/constants/App";
+import {REGISTER_PAGE_API_REGISTER} from "../constants/RegisterPage";
+import {ACCOUNT_PAGE_PATH} from "../../../shared/AccountPage/constants/AccountPage";
+import {Redirect} from "react-router-dom";
 
-import {REGISTER_PAGE_API_REGISTER} from "../../RegisterPage/constants/RegisterPage";
 
-
-class LoginPageContainer extends Component {
+class RegisterPageContainer extends Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
             login: "",
             password: "",
-            error: null,
+            passwordRepeat: "",
+            error: false,
+            redirect: null,
         }
 
-        this.onLoginClick = this.onLoginClick.bind(this);
+        this.onRegisterClick = this.onRegisterClick.bind(this);
         this.onLoginChange = this.onLoginChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
+        this.onPasswordRepeatChange = this.onPasswordRepeatChange.bind(this);
     }
 
     saveUser(userModel) {
@@ -29,7 +36,7 @@ class LoginPageContainer extends Component {
         localStorage.setItem(APP_LOCAL_STORAGE_USER_ROLE_KEY, userModel.role);
     }
 
-    async onLoginClick(event) {
+    async onRegisterClick(event) {
         const response = await axios.get(APP_API_BASE_URL + REGISTER_PAGE_API_REGISTER, {
             params: {
                 name: this.state.login,
@@ -39,8 +46,10 @@ class LoginPageContainer extends Component {
         }).catch(function (error) {
             this.setState({error: error.response.data});
         });
+
         if (response.status === 200) {
             this.saveUser(response.data);
+            this.setState({redirect: ACCOUNT_PAGE_PATH});
         }
     }
 
@@ -52,14 +61,22 @@ class LoginPageContainer extends Component {
         this.setState({password: event.target.value});
     }
 
+    onPasswordRepeatChange(event) {
+        this.setState({passwordRepeat: event.target.value});
+    }
+
     render() {
-        return <LoginPageComponent
+        if (this.state.redirect)
+            return <Redirect to={this.state.redirect}/>
+
+        return <RegisterPageComponent
             onLoginChange={this.onLoginChange}
             onPasswordChange={this.onPasswordChange}
-            onLoginClick={this.onLoginClick}
+            onPasswordRepeatChange={this.onPasswordRepeatChange}
+            onRegisterClick={this.onRegisterClick}
             error={this.state.error}
         />
     }
 }
 
-export default LoginPageContainer;
+export default RegisterPageContainer;

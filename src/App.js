@@ -1,12 +1,7 @@
 import React, {Component} from "react";
 import './App.css';
 
-import {
-    Route,
-    Switch,
-    Redirect,
-    withRouter
-} from "react-router-dom"
+import {Redirect, Route, Switch, withRouter} from "react-router-dom"
 
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import Cookies from "universal-cookie/es6";
@@ -17,7 +12,7 @@ import LoginPageContainer from "./modules/LoginPage/containers/LoginPageContaine
 
 import AppBarComponent from "./modules/AppBar/components/AppBarComponent";
 
-import {setDefaultLanguage, setTranslations} from "react-multi-lang";
+import {setDefaultLanguage, setLanguage, setTranslations, useTranslation} from "react-multi-lang";
 
 
 import {PROBLEM_ADD_PAGE_PATH} from "./shared/ProblemAddPage/constants/ProblemAddPage";
@@ -27,6 +22,17 @@ import {LOGIN_PAGE_PATH} from "./shared/LoginPage/constants/LoginPage";
 
 import en from "./shared/App/translations/en.json";
 import ru from "./shared/App/translations/ru.json";
+import RegisterPageContainer from "./modules/RegisterPage/containers/RegisterPageContainer";
+import {REGISTER_PAGE_PATH} from "./shared/RegisterPage/constants/RegisterPage";
+import {
+    APP_COOKIES_LANG_EN,
+    APP_COOKIES_LANG_EXPIRATION_TIME,
+    APP_COOKIES_LANG_KEY, APP_COOKIES_LANG_RU,
+    APP_COOKIES_THEME_DARK,
+    APP_COOKIES_THEME_EXPIRATION_TIME,
+    APP_COOKIES_THEME_KEY,
+    APP_COOKIES_THEME_LIGHT
+} from "./shared/App/constants/App";
 
 
 const lightTheme = createTheme({
@@ -51,45 +57,82 @@ class App extends Component {
         super(props);
 
         const isDarkThemeEnabled = this.loadThemeCookie();
+        const lang = this.loadLangCookie();
+        setLanguage(this.getLangStringToUse(lang));
         this.state = {
             darkThemeEnabled: isDarkThemeEnabled,
+            language: lang
         }
         this.onThemeChange = this.onThemeChange.bind(this);
+        this.onLanguageClick = this.onLanguageClick.bind(this);
 
     }
 
     onThemeChange(event) {
         this.setState({darkThemeEnabled: event.target.checked});
-        this.saveThemeCookie(event.target.checked);
+        //this.saveCookies(event.target.checked);
     }
 
-    // TODO: transfer cookie name to constants
+    onLanguageClick(event) {
+        const lang = this.state.language === APP_COOKIES_LANG_EN ? APP_COOKIES_LANG_RU : APP_COOKIES_LANG_EN;
+        this.setState({language: lang});
+        //this.saveCookies();
+
+        setLanguage(this.getLangStringToUse(lang));
+    }
+
+    getLangStringToUse(lang)
+    {
+        return lang === APP_COOKIES_LANG_EN ? "en" : "ru";
+    }
+
+
     loadThemeCookie() {
         const cookies = new Cookies();
-        const theme = cookies.get("theme");
-        return theme === "dark";
+        const theme = cookies.get(APP_COOKIES_THEME_KEY);
+        return theme === APP_COOKIES_THEME_DARK;
     }
 
-    saveThemeCookie(isDarkThemeEnabled) {
+    loadLangCookie() {
         const cookies = new Cookies();
-        // TODO: transfer expiration time to constants
-        const expirationDate = new Date();
-        expirationDate.setTime(expirationDate.getTime() + 20 * 60 * 1000);
-        cookies.set("theme", isDarkThemeEnabled ? "dark" : "light", {expires: expirationDate});
+        const lang = cookies.get(APP_COOKIES_LANG_KEY);
+        if (lang)
+            return lang;
+        return APP_COOKIES_LANG_EN;
+    }
+
+    saveCookies() {
+        const cookies = new Cookies();
+        const themeCookieExpirationDate = this.expirationTime(APP_COOKIES_THEME_EXPIRATION_TIME);
+        const langCookieExpirationDate = this.expirationTime(APP_COOKIES_LANG_EXPIRATION_TIME);
+
+        cookies.set(APP_COOKIES_THEME_KEY, this.state.darkThemeEnabled ? APP_COOKIES_THEME_DARK : APP_COOKIES_THEME_LIGHT, {expires: themeCookieExpirationDate});
+        cookies.set(APP_COOKIES_LANG_KEY, this.state.language.toLowerCase(), {expires: langCookieExpirationDate});
+    }
+
+    expirationTime(time) {
+        const now = new Date();
+        now.setTime(now.getTime() + time);
+        return now;
     }
 
     render() {
+        this.saveCookies();
         const {history} = this.props;
         const theme = this.state.darkThemeEnabled ? darkTheme : lightTheme;
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline>
                     <AppBarComponent onThemeSwitchChange={this.onThemeChange}
-                                     isDarkThemeEnabled={this.state.darkThemeEnabled}/>
+                                     isDarkThemeEnabled={this.state.darkThemeEnabled}
+                                     onLanguageClick={this.onLanguageClick}
+                                     language={this.state.language}
+                    />
                     <Switch>
                         <Route history={history} path={ACCOUNT_PAGE_PATH} component={AccountPageContainer}/>
                         <Route history={history} path={PROBLEM_ADD_PAGE_PATH} component={ProblemAddPageContainer}/>
                         <Route history={history} path={LOGIN_PAGE_PATH} component={LoginPageContainer}/>
+                        <Route history={history} path={REGISTER_PAGE_PATH} component={RegisterPageContainer}/>
                         <Redirect from="/" to={PROBLEM_ADD_PAGE_PATH}/>
                     </Switch>
                 </CssBaseline>
