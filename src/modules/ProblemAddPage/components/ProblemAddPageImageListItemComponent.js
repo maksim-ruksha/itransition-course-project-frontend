@@ -6,16 +6,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 export default function ProblemAddPageImageListItemComponent({image, alt}) {
     const classes = useStyles();
     return (
-        <Button
-            variant="outlined"
-            className={classes.imageAddButton}
-            component="label"
-        >
-
-            <Paper variant="outlined">
-                <img src={image} className={classes.imageRemoveButton} alt={alt}/>
-            </Paper>
-            <DeleteIcon/>
-        </Button>
+        <div>
+            <img src={image} className={classes.image} alt={alt}/>
+        </div>
     );
 }
+
+/*
+<Button
+    variant="outlined"
+    className={classes.imageAddButton}
+    component="label"
+>
+    <img src={image} className={classes.imageRemoveButton} alt={alt}/>
+    <DeleteIcon/>
+</Button>*/

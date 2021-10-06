@@ -17,6 +17,7 @@ import {useStyles} from "./ProblemAddPageStyles";
 import ProblemAddPageEditTabComponent from "./ProblemAddPageEditTabComponent";
 import ProblemAddPagePreviewTabComponent from "./ProblemAddPagePreviewTabComponent";
 import ProblemAddPageTagsComponent from "./ProblemAddPageTagsComponent";
+import ProblemAddPageThemeSelectComponent from "./ProblemAddPageThemeSelectComponent";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -59,7 +60,9 @@ export default function ProblemAddPageComponent({
                                                     onRawDescriptionTextChange,
                                                     rawDescription,
                                                     tags,
-                                                    onTagsChange
+                                                    onTagsChange,
+                                                    themes,
+                                                    onThemeChange
                                                 }) {
     const classes = useStyles();
     const t = useTranslation("problem-add-page");
@@ -107,7 +110,15 @@ export default function ProblemAddPageComponent({
             </div>
 
             <div className={classes.margin16px}>
-                <ProblemAddPageTagsComponent tags={tags} onTagsChange={onTagsChange}/>
+                <ProblemAddPageTagsComponent
+                    tags={tags}
+                    onTagsChange={onTagsChange}/>
+            </div>
+            {/*Тебе ебать если мои дивы не нравятся, так ты выйди со мной раз на раз, а не в интернете выёбывайся*/}
+            <div className={classes.margin16px}>
+                <ProblemAddPageThemeSelectComponent
+                    themes={themes}
+                    onThemeChange={onThemeChange}/>
             </div>
             <div className={classes.margin16px}>
                 <Button variant="contained" className={classes.button}>

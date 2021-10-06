@@ -35,6 +35,13 @@ export const useStyles = makeStyles({
         width: "256px",
         height: "128px",
     },
+    image: {
+        width: "256px",
+        height: "128px",
+    },
+    select:{
+        width: "128px",
+    },
     imageRemoveButton: {
         position: "absolute",
         width: "256px",

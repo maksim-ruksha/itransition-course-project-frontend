@@ -16,7 +16,8 @@
     "tab-preview": "Preview",
     "upload-images": "Upload images",
     "publish": "Publish",
-    "tags": "Tags (separate by commas)"
+    "tags": "Tags (separate by commas)",
+    "theme": "Theme"
   },
   "login-page": {
     "login": "Login",

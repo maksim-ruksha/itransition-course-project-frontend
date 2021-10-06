@@ -2,8 +2,8 @@ import React from "react";
 import {
     AppBar,
     Box,
-    Button, FormControl,
-    FormControlLabel, InputLabel, MenuItem, Select,
+    Button,
+    FormControlLabel,
     Switch,
     Toolbar,
     Typography
@@ -51,7 +51,9 @@ export default function AppBarComponent({
                         <Button color="inherit" variant="outlined" onClick={onLanguageClick}>{language}</Button>
                     </div>
 
-                    <Button color="inherit">{userName ? userName : t("login")}</Button>
+                    <Button
+                        onClick={onLoginClick}
+                        color="inherit">{userName ? userName : t("login")}</Button>
                 </Toolbar>
 
             </AppBar>

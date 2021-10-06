@@ -2,6 +2,9 @@ import React, {Component} from "react";
 import ProblemAddPageComponent from "../components/ProblemAddPageComponent";
 import ProblemAddPageImageListItemComponent from "../components/ProblemAddPageImageListItemComponent";
 import ProblemAddPageAddImageListItemComponent from "../components/ProblemAddPageAddImageListItemComponent";
+import {APP_API_BASE_URL} from "../../../shared/App/constants/App";
+import {PROBLEM_ADD_PAGE_API_GET_PROBLEM_THEMES} from "../constants/ProblemAddPage";
+import axios from "axios";
 
 class ProblemAddPageContainer extends Component {
 
@@ -14,7 +17,7 @@ class ProblemAddPageContainer extends Component {
             rawDescription: "",
             tags: "",
             theme: null,
-
+            allThemes: [{value: ""}],
             problemImages: [],
         }
 
@@ -23,23 +26,31 @@ class ProblemAddPageContainer extends Component {
         this.onTabsChange = this.onTabsChange.bind(this);
         this.onImageFieldChange = this.onImageFieldChange.bind(this);
         this.onTagsChange = this.onTagsChange.bind(this);
+        this.onThemeChange = this.onThemeChange.bind(this);
+
+        this.loadThemes();
     }
 
     makeImageList() {
-        const imagesCount = this.state.problemImages.length;
-
-        const images = this.state.problemImages.map(file =>
-            (<ProblemAddPageImageListItemComponent image={file ? URL.createObjectURL(file) : null}
-                                                   alt={file ? file.name : null}/>
-            ));
-        if (imagesCount < 3)
-            return (<div>
-                {images}
-                <ProblemAddPageAddImageListItemComponent onImageFieldChange={this.onImageFieldChange}/>
-            </div>);
-        return (<div>
+        const images = this.state.problemImages.map(file => file != null ?
+            (<ProblemAddPageImageListItemComponent
+                key={file.name}
+                image={file ? URL.createObjectURL(file) : null}/>) : {}
+        );
+        return <div>
             {images}
-        </div>);
+            <ProblemAddPageAddImageListItemComponent onImageFieldChange={this.onImageFieldChange}/>
+        </div>
+    }
+
+    async loadThemes() {
+        const response = await axios.get(APP_API_BASE_URL + PROBLEM_ADD_PAGE_API_GET_PROBLEM_THEMES, {params: {}})
+            .catch(function (error) {
+            });
+
+        if (response.status === 200) {
+            this.setState({allThemes: response.data});
+        }
     }
 
     onTitleChange(event) {
@@ -65,6 +76,10 @@ class ProblemAddPageContainer extends Component {
         this.setState({tags: event.target.value});
     }
 
+    onThemeChange(event) {
+        this.setState({theme: event.target.value});
+    }
+
     render() {
         return (
             <ProblemAddPageComponent
@@ -77,6 +92,8 @@ class ProblemAddPageContainer extends Component {
                 imageList={this.makeImageList()}
                 onTagsChange={this.onTagsChange}
                 tags={this.state.tags.split(",")}
+                themes={this.state.allThemes}
+                onThemeChange={this.onThemeChange}
             />
         );
     }

@@ -8,6 +8,7 @@ export default function ProblemAddPageTagsComponent({tags, onTagsChange}) {
     const t = useTranslation("problem-add-page");
     const chips = tags.map(tag => (
         <Chip
+            key={tag}
             className={classes.tagChip}
             label={tag}/>
     ));
