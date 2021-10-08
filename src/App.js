@@ -33,6 +33,8 @@ import {
     APP_COOKIES_THEME_KEY,
     APP_COOKIES_THEME_LIGHT
 } from "./shared/App/constants/App";
+import {PROBLEM_THEME_PAGE_PATH} from "./shared/ProblemThemePage/constants/ProblemThemePage";
+import ProblemThemePageContainer from "./modules/ProblemThemePage/containers/ProblemThemePageContainer";
 
 
 const lightTheme = createTheme({
@@ -133,6 +135,7 @@ class App extends Component {
                         <Route history={history} path={PROBLEM_ADD_PAGE_PATH} component={ProblemAddPageContainer}/>
                         <Route history={history} path={LOGIN_PAGE_PATH} component={LoginPageContainer}/>
                         <Route history={history} path={REGISTER_PAGE_PATH} component={RegisterPageContainer}/>
+                        <Route history={history} path={PROBLEM_THEME_PAGE_PATH} component={ProblemThemePageContainer}/>
                         <Redirect from="/" to={PROBLEM_ADD_PAGE_PATH}/>
                     </Switch>
                 </CssBaseline>

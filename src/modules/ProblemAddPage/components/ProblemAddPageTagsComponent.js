@@ -1,5 +1,5 @@
 import React from "react";
-import {Chip, Stack, TextField} from "@mui/material";
+import {Chip, TextField} from "@mui/material";
 import {useTranslation} from "react-multi-lang";
 import {useStyles} from "./ProblemAddPageStyles";
 

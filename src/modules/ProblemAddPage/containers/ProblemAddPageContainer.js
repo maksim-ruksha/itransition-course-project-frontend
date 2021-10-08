@@ -69,7 +69,6 @@ class ProblemAddPageContainer extends Component {
         const currentImages = this.state.problemImages;
         currentImages.push(event.target.files[0]);
         this.setState({problemImages: currentImages});
-        console.log(this.state.problemImages);
     }
 
     onTagsChange(event) {

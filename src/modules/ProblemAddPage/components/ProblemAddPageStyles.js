@@ -7,7 +7,7 @@ export const useStyles = makeStyles({
         marginRight: "200px",
     },
     margin16px: {
-        margin: "16px"
+        margin: "16px",
     },
     tagChip: {
         marginRight: "8px",
@@ -28,7 +28,7 @@ export const useStyles = makeStyles({
         border: "1px solid grey",
     },
     button: {
-        margin: "16px"
+        margin: "16px",
     },
     imageAddButton: {
         margin: "16px",
@@ -38,6 +38,8 @@ export const useStyles = makeStyles({
     image: {
         width: "256px",
         height: "128px",
+        objectFit: "cover",
+        borderRadius: "4px",
     },
     select:{
         width: "128px",

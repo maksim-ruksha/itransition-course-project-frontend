@@ -29,5 +29,10 @@
     "login": "Login",
     "password": "Password",
     "password-repeat": "Repeat password"
+  },
+  "problem-theme-page": {
+    "theme": "Theme",
+    "update": "Update",
+    "add": "Add"
   }
 }
