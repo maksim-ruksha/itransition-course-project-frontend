@@ -20,6 +20,7 @@ export default function ProblemThemePageItemComponent({theme, onThemeChange, onU
             </div>
             <div className={classes.margin16px}>
                 <Button
+                    id={componentId.toString()}
                     variant="outlined"
                     onClick={onUpdateClick}>
                     {

@@ -3,7 +3,7 @@ import {useStyles} from "./ProblemThemePageStyles";
 import {useTranslation} from "react-multi-lang";
 import {Button, Divider, TextField} from "@mui/material";
 
-export default function ProblemThemePageAddComponent({theme, onThemeChange, onUpdateClick})
+export default function ProblemThemePageAddComponent({theme, onNewThemeChange, onAddClick})
 {
     const classes = useStyles();
     const t = useTranslation("problem-theme-page");
@@ -13,7 +13,7 @@ export default function ProblemThemePageAddComponent({theme, onThemeChange, onUp
             <div className={classes.margin16px}>
                 <TextField
                     className={classes.margin16px}
-                    onChange={onThemeChange}
+                    onChange={onNewThemeChange}
                     value={theme}
                     label={t("theme")}>
                 </TextField>
@@ -21,8 +21,8 @@ export default function ProblemThemePageAddComponent({theme, onThemeChange, onUp
             <div className={classes.margin16px}>
                 <Button
                     variant="outlined"
-                    onClick={onUpdateClick}>
-                    {t("update")}
+                    onClick={onAddClick}>
+                    {t("add")}
                 </Button>
             </div>
             <Divider className={classes.margin16px}/>

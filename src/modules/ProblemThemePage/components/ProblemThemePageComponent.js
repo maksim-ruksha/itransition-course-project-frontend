@@ -4,7 +4,7 @@ import {Card, CardContent} from "@mui/material";
 import {useStyles} from "./ProblemThemePageStyles";
 import ProblemThemePageAddComponent from "./ProblemThemePageAddComponent";
 
-export default function ProblemThemePageComponent({themes, onThemeChange, onUpdateClick}) {
+export default function ProblemThemePageComponent({themes, errors, successes, onThemeChange, onUpdateClick}) {
 
     const classes = useStyles();
 
@@ -12,6 +12,8 @@ export default function ProblemThemePageComponent({themes, onThemeChange, onUpda
             <ProblemThemePageItemComponent
                 key={index}
                 theme={theme.value}
+                error={errors[index]}
+                success={successes[index]}
                 componentId={index}
                 onThemeChange={onThemeChange}
                 onUpdateClick={onUpdateClick}
