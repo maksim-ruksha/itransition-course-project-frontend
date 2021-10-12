@@ -4,7 +4,7 @@ import {Card, CardContent} from "@mui/material";
 import {useStyles} from "./ProblemThemePageStyles";
 import ProblemThemePageAddComponent from "./ProblemThemePageAddComponent";
 
-export default function ProblemThemePageComponent({themes, errors, successes, onThemeChange, onUpdateClick}) {
+export default function ProblemThemePageComponent({themes, errors, successes, onThemeChange, onUpdateClick, onNewThemeChange, onNewThemeCreateClick}) {
 
     const classes = useStyles();
 
@@ -24,7 +24,7 @@ export default function ProblemThemePageComponent({themes, errors, successes, on
     return (
         <Card className={classes.mainCard}>
             <CardContent>
-                <ProblemThemePageAddComponent/>
+                <ProblemThemePageAddComponent onNewThemeChange={onNewThemeChange} onAddClick={onNewThemeCreateClick}/>
                 {items}
             </CardContent>
         </Card>);

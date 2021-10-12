@@ -45,12 +45,10 @@ export const useStyles = makeStyles({
         width: "128px",
     },
     imageRemoveButton: {
-        position: "absolute",
-        width: "256px",
-        height: "128px",
-        borderRadius: "4px",
-        overflow: "hidden",
-        zIndex: "-1",
+        marginTop: "8px",
+        marginBottom: "16px",
+        marginLeft: "16px",
+        marginRight: "16px"
+    },
 
-    }
 });

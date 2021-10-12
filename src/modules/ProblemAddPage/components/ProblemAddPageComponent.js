@@ -62,7 +62,7 @@ export default function ProblemAddPageComponent({
                                                     tags,
                                                     onTagsChange,
                                                     themes,
-                                                    onThemeChange
+                                                    onThemeChange,
                                                 }) {
     const classes = useStyles();
     const t = useTranslation("problem-add-page");
@@ -114,7 +114,7 @@ export default function ProblemAddPageComponent({
                     tags={tags}
                     onTagsChange={onTagsChange}/>
             </div>
-            {/*Тебе ебать если мои дивы не нравятся, так ты выйди со мной раз на раз, а не в интернете выёбывайся*/}
+
             <div className={classes.margin16px}>
                 <ProblemAddPageThemeSelectComponent
                     themes={themes}

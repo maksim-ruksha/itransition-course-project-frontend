@@ -17,7 +17,8 @@
     "upload-images": "Upload images",
     "publish": "Publish",
     "tags": "Tags (separate by commas)",
-    "theme": "Theme"
+    "theme": "Theme",
+    "remove-image": "Remove image"
   },
   "login-page": {
     "login": "Login",

@@ -11,6 +11,7 @@ export const useStyles = makeStyles(
         margin16px: {
             margin: "16px",
         },
+
         horizontalDiv: {
             display: "inline-block",
             margin: "16px",

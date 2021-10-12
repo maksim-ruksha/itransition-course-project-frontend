@@ -1,15 +1,28 @@
 import React from "react";
 import {useStyles} from "./ProblemAddPageStyles";
 import {Button, Paper} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import {useTranslation} from "react-multi-lang";
 
-export default function ProblemAddPageImageListItemComponent({image, alt}) {
+export default function ProblemAddPageImageListItemComponent({image, alt, onRemoveImageClick, componentId}) {
     const classes = useStyles();
+    const t = useTranslation("problem-add-page");
     return (
         <div>
-            <img src={image} className={classes.image} alt={alt}/>
+            <div>
+                <img src={image} className={classes.image} alt={alt}/>
+            </div>
+            <div className={classes.imageRemoveButton}>
+                <Button
+                    id={componentId}
+                    variant="outlined"
+                    onClick={onRemoveImageClick}
+                >
+                    {t("remove-image")}
+                </Button>
+            </div>
         </div>
-    );
+    )
+        ;
 }
 
 /*

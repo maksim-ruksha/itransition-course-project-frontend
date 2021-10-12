@@ -15,6 +15,7 @@ class ProblemAddPageContainer extends Component {
 
             title: "",
             rawDescription: "",
+            highlightAddImageButton: false,
             tags: "",
             theme: null,
             allThemes: [{value: ""}],
@@ -28,18 +29,34 @@ class ProblemAddPageContainer extends Component {
         this.onTagsChange = this.onTagsChange.bind(this);
         this.onThemeChange = this.onThemeChange.bind(this);
 
+
+        this.onImageDragEnter = this.onImageDragEnter.bind(this);
+        this.onImageDragOver = this.onImageDragOver.bind(this);
+        this.onImageDragLeave = this.onImageDragLeave.bind(this);
+        this.onImageDragDrop = this.onImageDragDrop.bind(this);
+    }
+
+    componentDidMount() {
         this.loadThemes();
     }
 
     makeImageList() {
         const images = this.state.problemImages.map(file => file != null ?
             (<ProblemAddPageImageListItemComponent
+
                 key={file.name}
                 image={file ? URL.createObjectURL(file) : null}/>) : {}
         );
         return <div>
             {images}
-            <ProblemAddPageAddImageListItemComponent onImageFieldChange={this.onImageFieldChange}/>
+            <ProblemAddPageAddImageListItemComponent
+                onImageDragEnter={this.onImageDragEnter}
+                onImageDragOver={this.onImageDragOver}
+                onImageDragLeave={this.onImageDragLeave}
+                onImageDragDrop={this.onImageDragDrop}
+                onImageFieldChange={this.onImageFieldChange}
+                highlight={this.state.highlightAddImageButton}
+            />
         </div>
     }
 
@@ -66,10 +83,10 @@ class ProblemAddPageContainer extends Component {
     }
 
     onImageFieldChange(event) {
-        const currentImages = this.state.problemImages;
-        currentImages.push(event.target.files[0]);
-        this.setState({problemImages: currentImages});
+        this.pushNewImage(event.target.files[0]);
     }
+
+
 
     onTagsChange(event) {
         this.setState({tags: event.target.value});
@@ -77,6 +94,40 @@ class ProblemAddPageContainer extends Component {
 
     onThemeChange(event) {
         this.setState({theme: event.target.value});
+    }
+
+
+    onImageDragEnter(event) {
+        this.setState({highlightAddImageButton: true});
+        event.preventDefault();
+    }
+
+    onImageDragOver(event) {
+        event.preventDefault();
+    }
+
+    onImageDragLeave(event) {
+        this.setState({highlightAddImageButton: false});
+        event.preventDefault();
+    }
+
+    onImageDragDrop(event) {
+        this.setState({highlightAddImageButton: false});
+        event.preventDefault();
+        console.log(event.dataTransfer.files);
+        this.pushNewImage(event.dataTransfer.files[0]);
+    }
+
+    pushNewImage(file)
+    {
+        const currentImages = this.state.problemImages;
+        currentImages.push(file);
+        this.setState({problemImages: currentImages});
+    }
+
+    removeImage()
+    {
+        // TODO: removeImage() срочна блеать!!!
     }
 
     render() {
@@ -93,6 +144,8 @@ class ProblemAddPageContainer extends Component {
                 tags={this.state.tags.split(",")}
                 themes={this.state.allThemes}
                 onThemeChange={this.onThemeChange}
+
+
             />
         );
     }
