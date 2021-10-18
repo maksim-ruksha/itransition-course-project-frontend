@@ -1,6 +1,6 @@
 import React from "react";
 import {useStyles} from "./ProblemAddPageStyles";
-import {Button, Paper} from "@mui/material";
+import {Button} from "@mui/material";
 import {useTranslation} from "react-multi-lang";
 
 export default function ProblemAddPageImageListItemComponent({image, alt, onRemoveImageClick, componentId}) {

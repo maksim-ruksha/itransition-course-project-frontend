@@ -23,10 +23,13 @@
   "login-page": {
     "login": "Login",
     "password": "Password",
-    "sign-in": "Sign In"
+    "sign-in": "Sign In",
+    "register": "Register",
+    "or": "or you can"
   },
   "register-page": {
     "register": "Register",
+    "sign-in": "Sign In",
     "login": "Login",
     "password": "Password",
     "password-repeat": "Repeat password"

@@ -45,12 +45,14 @@ class RegisterPageContainer extends Component {
             }
         }).catch(function (error) {
             this.setState({error: error.response.data});
+        }).then((response) => {
+            if (response.status === 200) {
+                this.saveUser(response.data);
+                this.setState({redirect: ACCOUNT_PAGE_PATH});
+            }
         });
 
-        if (response.status === 200) {
-            this.saveUser(response.data);
-            this.setState({redirect: ACCOUNT_PAGE_PATH});
-        }
+
     }
 
     onLoginChange(event) {

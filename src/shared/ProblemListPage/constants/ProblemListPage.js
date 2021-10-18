@@ -1,0 +1,1 @@
+export const PROBLEM_LIST_PAGE_PATH = "/problems";

@@ -1,7 +1,8 @@
 import React from "react";
 import {useStyles} from "./RegisterPageStyles";
-import {Button, Card, CardContent, TextField, Typography,} from "@mui/material";
+import {Button, Card, CardContent, Link, TextField, Typography,} from "@mui/material";
 import {useTranslation} from "react-multi-lang";
+import {LOGIN_PAGE_PATH} from "../../../shared/LoginPage/constants/LoginPage";
 
 export default function RegisterPageComponent({
                                                   onLoginChange,
@@ -48,6 +49,18 @@ export default function RegisterPageComponent({
             >
                 {t("register")}
             </Button>
+            <div className={classes.horizontalDiv}>
+                <Button
+                    className={classes.margin16px}
+                    variant="outlined"
+                >
+                    <Link
+                        href={LOGIN_PAGE_PATH}
+                        underline="none">
+                        {t("sign-in")}
+                    </Link>
+                </Button>
+            </div>
         </CardContent>
     </Card>;
 }

@@ -7,7 +7,6 @@ import {
     PROBLEM_THEME_PAGE_API_GET_PROBLEM_THEMES,
     PROBLEM_THEME_PAGE_API_UPDATE_PROBLEM_THEME
 } from "../../../shared/ProblemThemePage/constants/ProblemThemePage";
-import {useTranslation} from "react-multi-lang";
 
 
 class ProblemThemePageContainer extends Component {
@@ -34,14 +33,16 @@ class ProblemThemePageContainer extends Component {
     }
 
     async loadThemes() {
-        const response = await axios.get(APP_API_BASE_URL + PROBLEM_THEME_PAGE_API_GET_PROBLEM_THEMES, {params: {}})
-            .catch(function (error) {
+        await axios.get(APP_API_BASE_URL + PROBLEM_THEME_PAGE_API_GET_PROBLEM_THEMES, {params: {}})
+            .catch((error) => {
                 console.log(error.response.data);
+            }).then((response) => {
+                if (response.status === 200) {
+                    this.setState({loadedThemes: response.data});
+                }
             });
 
-        if (response.status === 200) {
-            this.setState({loadedThemes: response.data});
-        }
+
     }
 
     onThemeChange(event) {
@@ -58,43 +59,44 @@ class ProblemThemePageContainer extends Component {
         const index = parseInt(event.target.id);
         const theme = this.state.loadedThemes[index];
 
-        const response = await axios.post(APP_API_BASE_URL + PROBLEM_THEME_PAGE_API_UPDATE_PROBLEM_THEME,
+        await axios.post(APP_API_BASE_URL + PROBLEM_THEME_PAGE_API_UPDATE_PROBLEM_THEME,
             {
                 id: theme.id,
                 value: theme.value,
 
-            }).catch(function (error) {
-            console.log(error.response.data);
-            const errors = this.state.errors;
-            errors[index] = error.response.data;
-            this.setState({errors: errors});
-        });
+            })
+            .catch((error) => {
+                console.log(error.response.data);
+                const errors = this.state.errors;
+                errors[index] = error.response.data;
+                this.setState({errors: errors});
+            })
+            .then(() => {
 
-        if (response.status === 200) {
+            });
 
-            const successes = this.state.successes;
-            successes[index] = true;
-            this.setState({successes: successes});
-        }
+
     }
 
     onNewThemeChange(event) {
         this.setState({newTheme: event.target.value});
     }
 
-    async onNewThemeCreateClick(event) {
-        const response = await axios.post(APP_API_BASE_URL + PROBLEM_THEME_PAGE_API_CREATE_PROBLEM_THEME,
+    async onNewThemeCreateClick() {
+        await axios.post(APP_API_BASE_URL + PROBLEM_THEME_PAGE_API_CREATE_PROBLEM_THEME,
             {
                 value: this.state.newTheme
             }
-        ).catch(function (error) {
+        ).catch((error) => {
             console.log(error.response.data);
             this.setState({newThemeError: error.response.data});
+        }).then((response) => {
+            if (response.status === 200) {
+                this.setState({newTheme: ""});
+                this.loadThemes();
+            }
         });
-        if (response.status === 200) {
-            event.target.value = "";
-            this.loadThemes();
-        }
+
     }
 
 

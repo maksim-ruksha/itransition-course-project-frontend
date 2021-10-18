@@ -6,11 +6,11 @@ import {useStyles} from "./ProblemAddPageStyles";
 export default function ProblemAddPageTagsComponent({tags, onTagsChange}) {
     const classes = useStyles();
     const t = useTranslation("problem-add-page");
-    const chips = tags.map(tag => (
+    const chips = tags.map((tag, index) => (tag !== "" ?
         <Chip
-            key={tag}
+            key={index}
             className={classes.tagChip}
-            label={tag}/>
+            label={tag}/> : <div key={index}/>
     ));
     return <div>
         <TextField

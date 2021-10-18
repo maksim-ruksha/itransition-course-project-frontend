@@ -16,3 +16,6 @@ export const APP_COOKIES_LANG_EXPIRATION_TIME = 120 * 60 * 1000;
 export const APP_COOKIES_LANG_KEY = "lang";
 export const APP_COOKIES_LANG_EN = "english";
 export const APP_COOKIES_LANG_RU = "russian";
+
+
+export const VALID_IMAGE_FILE_TYPES = ["image/jpeg", "image/png", "image/gif"];

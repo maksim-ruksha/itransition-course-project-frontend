@@ -1,0 +1,1 @@
+export const PROBLEM_PAGE_PATH = "/problem/:id"

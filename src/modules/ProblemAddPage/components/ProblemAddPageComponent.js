@@ -18,6 +18,7 @@ import ProblemAddPageEditTabComponent from "./ProblemAddPageEditTabComponent";
 import ProblemAddPagePreviewTabComponent from "./ProblemAddPagePreviewTabComponent";
 import ProblemAddPageTagsComponent from "./ProblemAddPageTagsComponent";
 import ProblemAddPageThemeSelectComponent from "./ProblemAddPageThemeSelectComponent";
+import ProblemAddPageSolutionVariantsComponent from "./ProblemAddPageSolutionVariantsComponent";
 
 function TabPanel(props) {
     const {children, value, index, ...other} = props;
@@ -63,6 +64,11 @@ export default function ProblemAddPageComponent({
                                                     onTagsChange,
                                                     themes,
                                                     onThemeChange,
+                                                    onSolutionAddClick,
+                                                    onSolutionRemoveClick,
+                                                    onSolutionChange,
+                                                    onPublishClick,
+                                                    solutionVariants
                                                 }) {
     const classes = useStyles();
     const t = useTranslation("problem-add-page");
@@ -120,8 +126,20 @@ export default function ProblemAddPageComponent({
                     themes={themes}
                     onThemeChange={onThemeChange}/>
             </div>
+            <div>
+                <ProblemAddPageSolutionVariantsComponent
+                    onSolutionVariantChange={onSolutionChange}
+                    onSolutionVariantRemoveClick={onSolutionRemoveClick}
+                    onSolutionVariantAddClick={onSolutionAddClick}
+                    variants={solutionVariants}
+                />
+            </div>
             <div className={classes.margin16px}>
-                <Button variant="contained" className={classes.button}>
+                <Button
+                    variant="contained"
+                    className={classes.button}
+                    onClick={onPublishClick}
+                >
                     {t("publish")}
                 </Button>
             </div>

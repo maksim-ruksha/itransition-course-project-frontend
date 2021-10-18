@@ -30,18 +30,20 @@ class LoginPageContainer extends Component {
     }
 
     async onLoginClick(event) {
-        const response = await axios.get(APP_API_BASE_URL + REGISTER_PAGE_API_REGISTER, {
+        await axios.get(APP_API_BASE_URL + REGISTER_PAGE_API_REGISTER, {
             params: {
                 name: this.state.login,
                 password: this.state.password,
                 passwordRepeat: this.state.passwordRepeat,
             }
-        }).catch(function (error) {
+        }).catch((error) => {
             this.setState({error: error.response.data});
+        }).then((response) => {
+            if (response.status === 200) {
+                this.saveUser(response.data);
+            }
         });
-        if (response.status === 200) {
-            this.saveUser(response.data);
-        }
+
     }
 
     onLoginChange(event) {

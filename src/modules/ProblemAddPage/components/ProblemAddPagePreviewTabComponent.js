@@ -13,8 +13,6 @@ export default function ProblemAddPagePreviewTabComponent({rawDescription}) {
                 table: ({node, ...props}) => <table className={classes.borderCollapse}>{props.children}</table>,
                 th: ({node, ...props}) => <th className={classes.borderColor}><div className={classes.margin16px}>{props.children}</div></th>,
                 td: ({node, ...props}) => <td className={classes.borderColor}><div className={classes.margin16px}>{props.children}</div></td>,
-
-
             }}
         >
             {rawDescription}

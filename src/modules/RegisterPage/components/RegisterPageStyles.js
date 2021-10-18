@@ -12,4 +12,8 @@ export const useStyles = makeStyles({
     button:{
         margin: "16px"
     },
+    horizontalDiv: {
+        display: "inline-block",
+        margin: "16px",
+    },
 });

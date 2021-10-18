@@ -20,20 +20,21 @@ class AccountPageContainer extends Component {
     }
 
     async getUserProblems(page) {
-        // TODO: implement getUserProblems()
+
         const response = await axios.get(APP_API_BASE_URL + ACCOUNT_PAGE_API_GET_USER_PROBLEMS, null, {
             params: {
                 name: this.state.userId,
                 start: (page - 1) * pageSize,
                 pageSize: pageSize,
             }
+        }).catch((error) => {
+
+        }).then((response) => {
+            if (response.status === 200) {
+
+            }
         });
 
-        if(response.status === 200)
-        {
-            /*console.log("GOT PROBLEMS: ");
-            console.log(response);*/
-        }
         return response.data;
     }
 

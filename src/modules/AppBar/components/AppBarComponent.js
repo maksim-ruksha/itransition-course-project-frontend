@@ -3,7 +3,7 @@ import {
     AppBar,
     Box,
     Button,
-    FormControlLabel,
+    FormControlLabel, Link,
     Switch,
     Toolbar,
     Typography
@@ -11,6 +11,7 @@ import {
 import styled from "@emotion/styled";
 import {useTranslation} from "react-multi-lang";
 import {useStyles} from "./AppBarStyles";
+import {LOGIN_PAGE_PATH} from "../../../shared/LoginPage/constants/LoginPage";
 
 const Offset = styled('div')(({theme}) => theme.mixins.toolbar);
 
@@ -19,7 +20,6 @@ export default function AppBarComponent({
                                             isDarkThemeEnabled,
                                             userName,
                                             onLanguageClick,
-                                            onLoginClick,
                                             language
                                         }) {
 
@@ -48,12 +48,26 @@ export default function AppBarComponent({
 
 
                     <div className={classes.margin16px}>
-                        <Button color="inherit" variant="outlined" onClick={onLanguageClick}>{language}</Button>
+                        <Button
+                            color="inherit"
+                            variant="outlined"
+                            onClick={onLanguageClick}>
+                            {language}
+                        </Button>
                     </div>
 
-                    <Button
+                    {/*<Button
                         onClick={onLoginClick}
-                        color="inherit">{userName ? userName : t("login")}</Button>
+                        color="inherit">{userName ? userName : t("login")}
+                    </Button>*/}
+                    <Button>
+
+                        <Link
+                            href={LOGIN_PAGE_PATH}
+                            underline="none">
+                            {userName ? userName : t("login")}
+                        </Link>
+                    </Button>
                 </Toolbar>
 
             </AppBar>

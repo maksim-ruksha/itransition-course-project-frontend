@@ -50,5 +50,8 @@ export const useStyles = makeStyles({
         marginLeft: "16px",
         marginRight: "16px"
     },
+    solutionVariantTextField: {
+        width: "128px"
+    }
 
 });
