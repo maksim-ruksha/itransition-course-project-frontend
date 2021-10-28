@@ -25,7 +25,7 @@ export default function LoginPageComponent({onLoginChange, onPasswordChange, onL
             {error ?
                 <div className={classes.margin16px}>
                     <Typography color="error.main">
-                        {error + " (перевести бля)"}
+                        {error}
                     </Typography>
                 </div>
                 :

@@ -18,7 +18,9 @@
     "publish": "Publish",
     "tags": "Tags (separate by commas)",
     "theme": "Theme",
-    "remove-image": "Remove image"
+    "remove-image": "Remove image",
+    "add-solution": "Add solution",
+    "remove-solution": "Remove solution"
   },
   "login-page": {
     "login": "Login",

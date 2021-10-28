@@ -37,7 +37,7 @@ export default function RegisterPageComponent({
             {error ?
                 <div className={classes.margin16px}>
                     <Typography color="error.main">
-                        {error + " (перевести бля)"}
+                        {error}
                     </Typography>
                 </div>
                 : <div/>

@@ -9,7 +9,7 @@ export default function ProblemAddPageSolutionVariantItemComponent({
                                                                        onSolutionRemoveClick,
                                                                        componentId
                                                                    }) {
-    const t = useTranslation("problem-add");
+    const t = useTranslation("problem-add-page");
     const classes = useStyles();
     return <div>
         <TextField

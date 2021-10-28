@@ -1,11 +1,16 @@
 import React from "react";
 import ProblemAddPageSolutionVariantItemComponent from "./ProblemAddPageSolutionVariantItemComponent";
+import {Button} from "@mui/material";
+import {useTranslation} from "react-multi-lang";
 
 export default function ProblemAddPageSolutionVariantsComponent({
                                                                     variants,
                                                                     onSolutionVariantChange,
-                                                                    onSolutionVariantRemoveClick
+                                                                    onSolutionVariantRemoveClick,
+                                                                    onSolutionVariantAddClick
                                                                 }) {
+
+    const t = useTranslation("problem-add-page");
     const items = variants.map((variant, index) =>
         <ProblemAddPageSolutionVariantItemComponent
             key={index}
@@ -16,5 +21,13 @@ export default function ProblemAddPageSolutionVariantsComponent({
         />
     );
 
-    return items;
+    return <div>
+        <Button
+            variant="outlined"
+            onClick={onSolutionVariantAddClick}
+        >
+            {t("add-solution")}
+        </Button>
+        {items}
+    </div>;
 }

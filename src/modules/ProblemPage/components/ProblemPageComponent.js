@@ -14,13 +14,13 @@ export default function ProblemPageComponent({problemModel}) {
                 component="h1"
                 variant="h4"
             >
-                {problemModel.title}
+                {problemModel.Title}
             </Typography>
             <Typography
                 component="h1"
                 variant="h5"
             >
-                {problemModel.theme}
+                {problemModel.Theme}
             </Typography>
             <ReactMarkdown
                 remarkPlugins={[[remarkGfm, {}]]}
@@ -34,9 +34,9 @@ export default function ProblemPageComponent({problemModel}) {
                     </td>,
                 }}
             >
-                {problemModel.rawDescription}
+                {problemModel.RawDescription}
             </ReactMarkdown>
-            <ProblemPageTagsComponent tags={problemModel.tags}/>
+            <ProblemPageTagsComponent tags={problemModel.Tags}/>
 
         </CardContent>
     </Card>

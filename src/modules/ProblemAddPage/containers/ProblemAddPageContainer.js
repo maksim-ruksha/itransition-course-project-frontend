@@ -4,10 +4,14 @@ import axios from "axios";
 import ProblemAddPageComponent from "../components/ProblemAddPageComponent";
 import ProblemAddPageImageListItemComponent from "../components/ProblemAddPageImageListItemComponent";
 import ProblemAddPageAddImageListItemComponent from "../components/ProblemAddPageAddImageListItemComponent";
-import {APP_API_BASE_URL, VALID_IMAGE_FILE_TYPES} from "../../../shared/App/constants/App";
 import {
-    PROBLEM_ADD_PAGE_API_CREATE_PROBLEM,
-    PROBLEM_ADD_PAGE_API_GET_PROBLEM_THEMES
+    APP_API_BASE_URL,
+    APP_CLOUDINARY_API_KEY,
+    APP_CLOUDINARY_CLOUD_NAME,
+    VALID_IMAGE_FILE_TYPES
+} from "../../../shared/App/constants/App";
+import {
+    PROBLEM_ADD_PAGE_API_CREATE_PROBLEM, PROBLEM_ADD_PAGE_CLOUDINARY_API_UPLOAD_IMAGE,
 } from "../constants/ProblemAddPage";
 
 
@@ -17,14 +21,12 @@ class ProblemAddPageContainer extends Component {
         super(props);
         this.state = {
             tabsValue: 0,
-
             title: "",
             rawDescription: "",
             highlightAddImageButton: false,
             tags: "",
-            theme: null,
-            allThemes: [{value: ""}],
             problemImages: [],
+            problemImagesIds: [],
             solutionVariants: []
         }
 
@@ -35,7 +37,6 @@ class ProblemAddPageContainer extends Component {
         this.onImageFieldChange = this.onImageFieldChange.bind(this);
         this.onTagsChange = this.onTagsChange.bind(this);
 
-        this.onThemeChange = this.onThemeChange.bind(this);
 
         this.onImageDragEnter = this.onImageDragEnter.bind(this);
         this.onImageDragOver = this.onImageDragOver.bind(this);
@@ -51,7 +52,7 @@ class ProblemAddPageContainer extends Component {
     }
 
     componentDidMount() {
-        this.loadThemes();
+
     }
 
     makeImageList() {
@@ -76,19 +77,6 @@ class ProblemAddPageContainer extends Component {
     }
 
 
-    async loadThemes() {
-        await axios.get(APP_API_BASE_URL + PROBLEM_ADD_PAGE_API_GET_PROBLEM_THEMES, {params: {}})
-            .catch((error) => {
-
-            }).then((response) => {
-                if (response.status === 200) {
-                    this.setState({allThemes: response.data});
-                }
-            });
-
-
-    }
-
     onTitleChange(event) {
         this.setState({title: event.target.value});
     }
@@ -108,10 +96,6 @@ class ProblemAddPageContainer extends Component {
 
     onTagsChange(event) {
         this.setState({tags: event.target.value});
-    }
-
-    onThemeChange(event) {
-        this.setState({theme: this.state.allThemes[event.target.value]});
     }
 
     onImageDragEnter(event) {
@@ -159,7 +143,6 @@ class ProblemAddPageContainer extends Component {
 
     onSolutionAddClick(event) {
         const solutions = this.state.solutionVariants;
-        solutions.push("");
         this.setState({solutionVariants: solutions});
     }
 
@@ -178,30 +161,70 @@ class ProblemAddPageContainer extends Component {
     }
 
     async onPublishClick(event) {
-        // TODO: onPublishClick();
         event.preventDefault();
+
         const formData = new FormData();
         formData.append("Title", this.state.title);
         formData.append("RawDescription", this.state.rawDescription);
-        formData.append("ProblemTheme", JSON.stringify(this.state.theme));
-        formData.append("Tags", JSON.stringify(this.state.tags));
-        formData.append("Images", JSON.stringify(this.state.problemImages));
+        const tags = this.state.tags.split(",");
+        for (let i = 0; i < tags.length; i++) {
+            formData.append("Tags[" + i + "].Tag", tags[i]);
+        }
 
-        //formData.append("SolutionVariants", this.state.solutionVariants);
+        for (let i = 0; i < this.state.problemImages.length; i++) {
+            await this.uploadImage(this.state.problemImages[i], i);
+        }
+
+        for (let i = 0; i < this.state.problemImagesIds.length; i++) {
+            const imageData = this.state.problemImagesIds[i];
+            formData.append("Images[" + imageData.index + "].ImageFileName", imageData.id);
+        }
+
+        for (let i = 0; i < this.state.solutionVariants.length; i++) {
+            formData.append("SolutionVariants[" + i + "].Solution", this.state.solutionVariants[i]);
+        }
+
+        // TODO: append author to formData
         //formData.append("Author", и че);
+        // TODO: append empty rating to formData
 
-        await axios.post(APP_API_BASE_URL + PROBLEM_ADD_PAGE_API_CREATE_PROBLEM, formData)
+        await axios.post(APP_API_BASE_URL + PROBLEM_ADD_PAGE_API_CREATE_PROBLEM,
+            formData,
+        )
             .catch((error) => {
                 console.log(error.response.data);
             })
             .then((response) => {
                 if (response.status === 200) {
                     // TODO: redirect to main list
-                    //console.log("каво");
+                    console.log("каво");
 
                 }
             });
 
+    }
+
+    async uploadImage(image, index) {
+
+        const data = new FormData();
+        data.append("file", image);
+        data.append("upload_preset", "default_upload_preset");
+        data.append("cloud_name", APP_CLOUDINARY_CLOUD_NAME);
+        data.append("api_key", APP_CLOUDINARY_API_KEY);
+
+        await axios.post(PROBLEM_ADD_PAGE_CLOUDINARY_API_UPLOAD_IMAGE,
+            data
+        )
+
+            .then((response) => {
+                if (response.status === 200) {
+                    const imagesIds = this.state.problemImagesIds;
+                    imagesIds.push({index: index, id: response.data.public_id})
+                    this.setState({problemImagesIds: imagesIds});
+                }
+            }).catch((error) => {
+                console.log(error.response.data);
+            });
     }
 
     render() {
@@ -216,8 +239,10 @@ class ProblemAddPageContainer extends Component {
                 imageList={this.makeImageList()}
                 onTagsChange={this.onTagsChange}
                 tags={this.state.tags.split(",")}
-                themes={this.state.allThemes}
                 onThemeChange={this.onThemeChange}
+                onSolutionAddClick={this.onSolutionAddClick}
+                onSolutionChange={this.onSolutionChange}
+                onSolutionRemoveClick={this.onSolutionRemoveClick}
                 solutionVariants={this.state.solutionVariants}
                 onPublishClick={this.onPublishClick}
             />

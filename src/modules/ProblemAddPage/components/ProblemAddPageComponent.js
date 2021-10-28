@@ -17,7 +17,6 @@ import {useStyles} from "./ProblemAddPageStyles";
 import ProblemAddPageEditTabComponent from "./ProblemAddPageEditTabComponent";
 import ProblemAddPagePreviewTabComponent from "./ProblemAddPagePreviewTabComponent";
 import ProblemAddPageTagsComponent from "./ProblemAddPageTagsComponent";
-import ProblemAddPageThemeSelectComponent from "./ProblemAddPageThemeSelectComponent";
 import ProblemAddPageSolutionVariantsComponent from "./ProblemAddPageSolutionVariantsComponent";
 
 function TabPanel(props) {
@@ -62,8 +61,6 @@ export default function ProblemAddPageComponent({
                                                     rawDescription,
                                                     tags,
                                                     onTagsChange,
-                                                    themes,
-                                                    onThemeChange,
                                                     onSolutionAddClick,
                                                     onSolutionRemoveClick,
                                                     onSolutionChange,
@@ -121,12 +118,8 @@ export default function ProblemAddPageComponent({
                     onTagsChange={onTagsChange}/>
             </div>
 
+
             <div className={classes.margin16px}>
-                <ProblemAddPageThemeSelectComponent
-                    themes={themes}
-                    onThemeChange={onThemeChange}/>
-            </div>
-            <div>
                 <ProblemAddPageSolutionVariantsComponent
                     onSolutionVariantChange={onSolutionChange}
                     onSolutionVariantRemoveClick={onSolutionRemoveClick}

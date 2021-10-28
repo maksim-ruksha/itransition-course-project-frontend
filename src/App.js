@@ -30,8 +30,7 @@ import {
     APP_COOKIES_THEME_KEY,
     APP_COOKIES_THEME_LIGHT
 } from "./shared/App/constants/App";
-import {PROBLEM_THEME_PAGE_PATH} from "./shared/ProblemThemePage/constants/ProblemThemePage";
-import ProblemThemePageContainer from "./modules/ProblemThemePage/containers/ProblemThemePageContainer";
+
 import AppBarContainer from "./modules/AppBar/containers/AppBarContainer";
 import {PROBLEM_PAGE_PATH} from "./shared/ProblemPage/constants/ProblemPage";
 import ProblemPageContainer from "./modules/ProblemPage/containers/ProblemPageContainer";
@@ -134,7 +133,6 @@ class App extends Component {
                         <Route history={history} path={PROBLEM_ADD_PAGE_PATH} component={ProblemAddPageContainer}/>
                         <Route history={history} path={LOGIN_PAGE_PATH} component={LoginPageContainer}/>
                         <Route history={history} path={REGISTER_PAGE_PATH} component={RegisterPageContainer}/>
-                        <Route history={history} path={PROBLEM_THEME_PAGE_PATH} component={ProblemThemePageContainer}/>
                         <Route history={history} path={PROBLEM_PAGE_PATH} component={ProblemPageContainer}/>
                         <Route history={history} path={PROBLEM_LIST_PAGE_PATH} component={ProblemListPageContainer}/>
                         <Redirect from="/" to={PROBLEM_ADD_PAGE_PATH}/>

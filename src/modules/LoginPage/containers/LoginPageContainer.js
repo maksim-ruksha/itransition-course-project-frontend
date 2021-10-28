@@ -7,6 +7,7 @@ import {
 } from "../../../shared/App/constants/App";
 
 import {REGISTER_PAGE_API_REGISTER} from "../../RegisterPage/constants/RegisterPage";
+import {LOGIN_PAGE_API_LOGIN} from "../constants/LoginPage";
 
 
 class LoginPageContainer extends Component {
@@ -30,7 +31,7 @@ class LoginPageContainer extends Component {
     }
 
     async onLoginClick(event) {
-        await axios.get(APP_API_BASE_URL + REGISTER_PAGE_API_REGISTER, {
+        await axios.get(APP_API_BASE_URL + LOGIN_PAGE_API_LOGIN, {
             params: {
                 name: this.state.login,
                 password: this.state.password,

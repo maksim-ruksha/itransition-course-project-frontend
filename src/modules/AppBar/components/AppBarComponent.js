@@ -60,13 +60,11 @@ export default function AppBarComponent({
                         onClick={onLoginClick}
                         color="inherit">{userName ? userName : t("login")}
                     </Button>*/}
-                    <Button>
+                    <Button color="inherit" component={Link} href={LOGIN_PAGE_PATH}
+                            underline="none"
+                    >
 
-                        <Link
-                            href={LOGIN_PAGE_PATH}
-                            underline="none">
-                            {userName ? userName : t("login")}
-                        </Link>
+                        {userName ? userName : t("login")}
                     </Button>
                 </Toolbar>
 

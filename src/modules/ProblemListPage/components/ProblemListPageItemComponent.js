@@ -10,8 +10,8 @@ export default function ProblemListPageItemComponent({problem}) {
             component="h1"
             variant="h4">
             <Link underline="none"
-                  href={PROBLEM_LIST_PAGE_HREF_PROBLEM + problem.id}>
-                {problem.title}
+                  href={PROBLEM_LIST_PAGE_HREF_PROBLEM + problem.Id}>
+                {problem.Title}
             </Link>
         </Typography>
         <Divider/>
