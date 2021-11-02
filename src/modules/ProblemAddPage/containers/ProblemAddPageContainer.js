@@ -13,9 +13,13 @@ import {
 import {
     PROBLEM_ADD_PAGE_API_CREATE_PROBLEM, PROBLEM_ADD_PAGE_CLOUDINARY_API_UPLOAD_IMAGE,
 } from "../constants/ProblemAddPage";
+import {Redirect} from "react-router-dom";
+import {PROBLEM_LIST_PAGE_PATH} from "../../../shared/ProblemListPage/constants/ProblemListPage";
+import {useTranslation} from "react-multi-lang";
 
 
 class ProblemAddPageContainer extends Component {
+
 
     constructor(props) {
         super(props);
@@ -27,7 +31,10 @@ class ProblemAddPageContainer extends Component {
             tags: "",
             problemImages: [],
             problemImagesIds: [],
-            solutionVariants: []
+            solutionVariants: [],
+            processingPublication: false,
+            redirect: false,
+            error: "",
         }
 
         this.onTitleChange = this.onTitleChange.bind(this);
@@ -143,6 +150,7 @@ class ProblemAddPageContainer extends Component {
 
     onSolutionAddClick(event) {
         const solutions = this.state.solutionVariants;
+        solutions.push("Solution " + (solutions.length + 1));
         this.setState({solutionVariants: solutions});
     }
 
@@ -161,6 +169,14 @@ class ProblemAddPageContainer extends Component {
     }
 
     async onPublishClick(event) {
+        if (!this.validateProblem()) {
+            return
+        }
+        if (this.state.processingPublication) {
+            return;
+        }
+
+        this.setState({processingPublication: true});
         event.preventDefault();
 
         const formData = new FormData();
@@ -193,12 +209,12 @@ class ProblemAddPageContainer extends Component {
         )
             .catch((error) => {
                 console.log(error.response.data);
+                this.setState({processingPublication: false});
             })
             .then((response) => {
                 if (response.status === 200) {
-                    // TODO: redirect to main list
-                    console.log("каво");
-
+                    this.setState({processingPublication: false});
+                    this.setState({redirect: true});
                 }
             });
 
@@ -227,7 +243,29 @@ class ProblemAddPageContainer extends Component {
             });
     }
 
+    validateProblem() {
+        if (this.state.title.length === 0) {
+            this.setState({error: "invalid-title"});
+            return false;
+        }
+        if (this.state.rawDescription.length === 0
+            && this.state.problemImages.length === 0) {
+            this.setState({error: "invalid-description"});
+            return false;
+        }
+        if (this.state.solutionVariants.length === 0) {
+            this.setState({error: "invalid-solutions"});
+            return false;
+        }
+        this.setState({error: ""});
+        return true;
+    }
+
     render() {
+        if (this.state.redirect) {
+            return <Redirect to={PROBLEM_LIST_PAGE_PATH} push={true}/>
+        }
+
         return (
             <ProblemAddPageComponent
                 onTabsChange={this.onTabsChange}
@@ -245,6 +283,17 @@ class ProblemAddPageContainer extends Component {
                 onSolutionRemoveClick={this.onSolutionRemoveClick}
                 solutionVariants={this.state.solutionVariants}
                 onPublishClick={this.onPublishClick}
+                processingPublication={this.state.processingPublication}
+
+                problemImages={this.state.problemImages}
+                onImageDragEnter={this.onImageDragEnter}
+                onImageDragOver={this.onImageDragOver}
+                onImageDragLeave={this.onImageDragLeave}
+                onImageDragDrop={this.onImageDragDrop}
+                onRemoveImageClick={this.onRemoveImageClick}
+                highlightAddImageButton={this.state.highlightAddImageButton}
+
+                error={this.state.error}
             />
         );
     }

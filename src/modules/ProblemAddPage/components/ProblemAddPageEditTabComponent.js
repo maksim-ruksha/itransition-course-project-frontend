@@ -3,7 +3,11 @@ import React from "react";
 
 import {useTranslation} from "react-multi-lang";
 
-export default function ProblemAddPageEditTabComponent({onRawDescriptionTextChange, rawDescription}) {
+export default function ProblemAddPageEditTabComponent({
+                                                           onRawDescriptionTextChange,
+                                                           rawDescription,
+                                                           processingPublication
+                                                       }) {
     const t = useTranslation("problem-add-page");
     return (
         <TextField
@@ -20,7 +24,9 @@ export default function ProblemAddPageEditTabComponent({onRawDescriptionTextChan
                     return false;
                 }
             }}
-            variant="filled"/>
+            variant="filled"
+            disabled={processingPublication}
+        />
 
     );
 }

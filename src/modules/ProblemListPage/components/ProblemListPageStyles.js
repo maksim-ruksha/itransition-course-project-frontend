@@ -9,4 +9,15 @@ export const useStyles = makeStyles({
     margin16px: {
         margin: "16px",
     },
+    image: {
+        margin: "8px",
+        width: "256px",
+        height: "128px",
+        objectFit: "cover",
+        borderRadius: "4px",
+    },
+    horizontalDiv: {
+        display: "inline-block",
+        margin: "16px",
+    },
 });

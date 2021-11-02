@@ -13,14 +13,14 @@ export default function ProblemAddPageSolutionVariantItemComponent({
     const classes = useStyles();
     return <div>
         <TextField
-            id={componentId}
+            id={componentId.toString()}
             className={classes.solutionVariantTextField}
             onChange={onSolutionChange}
         >
             {solution}
         </TextField>
         <Button
-            id={componentId}
+            id={componentId.toString()}
             onClick={onSolutionRemoveClick}
             variant="outlined"
         >

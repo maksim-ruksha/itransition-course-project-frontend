@@ -7,7 +7,8 @@ export default function ProblemAddPageSolutionVariantsComponent({
                                                                     variants,
                                                                     onSolutionVariantChange,
                                                                     onSolutionVariantRemoveClick,
-                                                                    onSolutionVariantAddClick
+                                                                    onSolutionVariantAddClick,
+                                                                    processingPublication
                                                                 }) {
 
     const t = useTranslation("problem-add-page");
@@ -25,6 +26,7 @@ export default function ProblemAddPageSolutionVariantsComponent({
         <Button
             variant="outlined"
             onClick={onSolutionVariantAddClick}
+            disabled={processingPublication}
         >
             {t("add-solution")}
         </Button>

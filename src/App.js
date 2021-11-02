@@ -36,6 +36,7 @@ import {PROBLEM_PAGE_PATH} from "./shared/ProblemPage/constants/ProblemPage";
 import ProblemPageContainer from "./modules/ProblemPage/containers/ProblemPageContainer";
 import ProblemListPageContainer from "./modules/ProblemListPage/containers/ProblemListPageContainer";
 import {PROBLEM_LIST_PAGE_PATH} from "./shared/ProblemListPage/constants/ProblemListPage";
+import ErrorBoundaryContainer from "./modules/ErrorBoundary/containers/ErrorBoundaryContainer";
 
 
 const lightTheme = createTheme({
@@ -81,8 +82,7 @@ class App extends Component {
         setLanguage(this.getLangStringToUse(lang));
     }
 
-    getLangStringToUse(lang)
-    {
+    getLangStringToUse(lang) {
         return lang === APP_COOKIES_LANG_EN ? "en" : "ru";
     }
 
@@ -123,20 +123,23 @@ class App extends Component {
         return (
             <ThemeProvider theme={theme}>
                 <CssBaseline>
-                    <AppBarContainer onThemeSwitchChange={this.onThemeChange}
-                                     isDarkThemeEnabled={this.state.darkThemeEnabled}
-                                     onLanguageClick={this.onLanguageClick}
-                                     language={this.state.language}
-                    />
-                    <Switch>
-                        <Route history={history} path={ACCOUNT_PAGE_PATH} component={AccountPageContainer}/>
-                        <Route history={history} path={PROBLEM_ADD_PAGE_PATH} component={ProblemAddPageContainer}/>
-                        <Route history={history} path={LOGIN_PAGE_PATH} component={LoginPageContainer}/>
-                        <Route history={history} path={REGISTER_PAGE_PATH} component={RegisterPageContainer}/>
-                        <Route history={history} path={PROBLEM_PAGE_PATH} component={ProblemPageContainer}/>
-                        <Route history={history} path={PROBLEM_LIST_PAGE_PATH} component={ProblemListPageContainer}/>
-                        <Redirect from="/" to={PROBLEM_ADD_PAGE_PATH}/>
-                    </Switch>
+                    <ErrorBoundaryContainer>
+                        <AppBarContainer onThemeSwitchChange={this.onThemeChange}
+                                         isDarkThemeEnabled={this.state.darkThemeEnabled}
+                                         onLanguageClick={this.onLanguageClick}
+                                         language={this.state.language}
+                        />
+                        <Switch>
+                            <Route history={history} path={ACCOUNT_PAGE_PATH} component={AccountPageContainer}/>
+                            <Route history={history} path={PROBLEM_ADD_PAGE_PATH} component={ProblemAddPageContainer}/>
+                            <Route history={history} path={LOGIN_PAGE_PATH} component={LoginPageContainer}/>
+                            <Route history={history} path={REGISTER_PAGE_PATH} component={RegisterPageContainer}/>
+                            <Route history={history} path={PROBLEM_PAGE_PATH} component={ProblemPageContainer}/>
+                            <Route history={history} path={PROBLEM_LIST_PAGE_PATH}
+                                   component={ProblemListPageContainer}/>
+                            <Redirect from="/" to={PROBLEM_ADD_PAGE_PATH}/>
+                        </Switch>
+                    </ErrorBoundaryContainer>
                 </CssBaseline>
             </ThemeProvider>
         )

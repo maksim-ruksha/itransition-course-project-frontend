@@ -2,7 +2,7 @@
 export const APP_API_BASE_URL = "https://localhost:5001/";
 
 // CLOUDINARY
-export const APP_CLOUDINARY_CLOUD_NAME = "dj65iclu";
+export const APP_CLOUDINARY_CLOUD_NAME = "dj65iclul";
 export const APP_CLOUDINARY_API_KEY = "169956575168817";
 
 // LOCAL STORAGE

@@ -17,7 +17,17 @@
     "upload-images": "Прикрепить изображения",
     "publish": "Опубликовать",
     "tags": "Теги (через запятую)",
-    "theme": "Тема"
+
+    "remove-image": "Удалить изображение",
+    "add-solution": "Добавить решение",
+    "remove-solution": "Удалить решение",
+
+
+    "invalid-title": "Заголовок говно",
+    "invalid-description": "Необходимо описание или хотя бы одно изображение",
+    "invalid-solutions": "Варианты решений не указаны",
+
+    "processing-publication": "Обработка..."
   },
   "login-page": {
     "login": "Логин",

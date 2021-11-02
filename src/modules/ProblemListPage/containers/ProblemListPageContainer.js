@@ -30,7 +30,6 @@ class ProblemListPageContainer extends Component {
     }
 
     render() {
-
         return <ProblemListPageComponent problems={this.state.problems}/>;
     }
 

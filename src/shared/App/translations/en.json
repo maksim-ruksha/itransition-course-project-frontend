@@ -17,10 +17,16 @@
     "upload-images": "Upload images",
     "publish": "Publish",
     "tags": "Tags (separate by commas)",
-    "theme": "Theme",
+
     "remove-image": "Remove image",
     "add-solution": "Add solution",
-    "remove-solution": "Remove solution"
+    "remove-solution": "Remove solution",
+
+    "invalid-title": "Invalid title",
+    "invalid-description": "No description or at least one image provided",
+    "invalid-solutions": "No solution variants provided",
+
+    "processing-publication": "Processing..."
   },
   "login-page": {
     "login": "Login",
